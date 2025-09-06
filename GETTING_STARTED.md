@@ -58,6 +58,13 @@ Minimal workspace configuration
 
 ![picture 6](images/3715a0e0dc54e5cabd65a0f5b09da661fd20a6a818b08aced077e31702fc720d.png)  
 
+- Connect to GitHub repository
+![picture 0](images/6ea837c2188a767d588e1f35655593b1b53b74c116d28f353ff03b09dd936ee2.png)  
+
+![picture 1](images/fcc71ae1e16086371950d35af9225fd8e33db845a709fff515dc0c71caacd35b.png)  
+
+
+
 
   - Switch to SQL persona → Warehouses → New → choose Pro/Classic if Serverless is unavailable in your region
   - Size: small; Auto-stop: 15–30 minutes
