@@ -35,7 +35,6 @@ To address this, the CMO and CDAO asked the **Data Engineer**, **Data Scientist*
 
 ![picture 8](images/daa5adb827d2fc7487dc37c035199c3f628e68fac93ce5aefcec854f1cca42bd.png)  
 
-
 ---
 
 ## Platform Context
@@ -88,9 +87,6 @@ In a production environment, this would be automated and governed using:
   - [Data Scientist](./certification/data-scientist-certifications.md)
   - [Data Business Analyst](./certification/data-business-analyst-certifications.md)
 - [Glossary](./GLOSSARY.md)
-
-
-
 
 
 ---
