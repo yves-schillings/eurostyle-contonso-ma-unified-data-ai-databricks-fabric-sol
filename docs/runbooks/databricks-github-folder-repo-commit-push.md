@@ -1,10 +1,10 @@
 # Runbook — Databricks and GitHub: Setup, Git Folder (Repos), Commit & Push (New UI)
 
-Goal
+## Goal
 
 Connect Databricks to GitHub, work inside a Git folder (/Repos), then Commit & Push your notebooks.
 
-## 0) Requirements
+## Requirements
 
 - You have write access to the target GitHub repo (e.g., `<your-git-user-account>/eurostyle-contonso-ma-unified-data-ai-databricks-fabric-sol`) or to your fork.
 - In your Databricks workspace, Repos (Git folders) and GitHub provider are enabled. If you don't see Repos or Linked accounts, ask a workspace admin to enable them.
@@ -119,34 +119,3 @@ Error messages that may appear if Databricks git hub app is not installed
 
 ![picture 15](../../images/9ad89369be9c540db5a72196617169826e01235985ec369e39379587300ab422.png)  
 
-
-## 6) Multiple accounts (common cases)
-
-- Want to push to `<your-git-user-account>/...` → the PAT in Linked accounts must belong to `<your-git-user-account>`.
-- Want to keep using your account → clone your fork, push there, then open a PR to the original repo.
-
-## 7) Quick troubleshooting
-
-- 403 "denied to <username>" → the stored PAT belongs to the wrong GitHub account.
-  - Fix: In Settings → User → Linked accounts, delete the entry and add a PAT from the correct account (or push to your fork).
-- No Commit/Push buttons → you're editing under `Workspace/`, not `/Repos/`. Open files from `/Repos`.
-- Cannot see Repos / Linked accounts → ask an admin to enable Git folders and the GitHub provider in Workspace admin → Workspace settings.
-- Databricks UI glitch (azurefd.net assets) → sign out/in, hard refresh (Ctrl+F5), try a private window, or clear site data for the workspace domain.
-
-## 8) One-minute checklist
-
-- [ ] PAT created on the right GitHub account with Contents: Read & write
-- [ ] PAT saved in Databricks → Settings → User → Linked accounts → GitHub
-- [ ] Repo cloned under `/Repos` (not `Workspace`)
-- [ ] Notebooks moved into `/Repos/...`
-- [ ] Stage → Commit → Push (or branch → PR)
-
-## Tips
-
-- Add a short entry in the repo root `README.md` linking to the runbook so contributors can find it quickly.
-- If your organization uses an internal docs site, mirror the runbook there and include the repo link.
-- For sensitive organizations: store PATs in a secure secret store—never commit them.
-
----
-
-File created: `docs/runbooks/push-databricks-to-github.md`
