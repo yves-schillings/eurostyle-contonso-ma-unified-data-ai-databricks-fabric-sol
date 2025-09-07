@@ -149,11 +149,37 @@ These steps sit outside the minimal trial path. Do them if you want realistic go
 
 ![picture 22](images/2cd6312e2553341fd06d53784388315187063da029ab9f8bd9b912df01777b4e.png)  
 
+![picture 24](images/587e4b54d0a4661ad97f2302058d0a8b5d964ef49c460fde84e08356069f4726.png)  
+
+![picture 25](images/18aa02d04bbf0f06bcd5914388391507085510b058bd6a5774a8eb5a297c7bf5.png)  
+
 
 ##### 4) Create Metastore & External Location (requires Account Admin)
-  - Databricks Account Console → Data → Create Metastore
-  - External Location path: `abfss://uc@stes-es-contonso-ma.dfs.core.windows.net/`
-  - Grant privileges to groups (data_engineers, analysts)
+> **No "Manage account" button visible? / Vous ne voyez pas "Manage account" ?**  
+> Then you are not an Account Admin (common with a personal trial). Skip the Unity Catalog steps below and use the fallback: create the `raw|bronze|silver|gold|monitor|ref` databases in `hive_metastore` (SQL block provided) and continue. You can enable Unity Catalog later without redoing earlier features.
+  - Open the Databricks Account Console (NOT the workspace UI) → left menu "Data" (sometimes labeled "Unity Catalog") → Create Metastore (give it a name and region matching the workspace)
+
+![picture 23](images/ed47b563298f4877971ff1d71f3f25d3165aa61593fcc068121184aafd9bdcc8.png)  
+
+
+  - If you do NOT see a "Manage Account" (or "Account Console") option in the top‑right user/avatar menu inside the workspace, you are not an Account Admin. Options:
+    - Ask an existing Account Admin to grant you the Account Admin role (Account Console → User management → add user → assign role) so you can perform steps 4–5.
+  - Escalation (no Account Admin visible / fresh trial) — open a Support ticket (Databricks or Azure) requesting elevation of your user to Account Admin. Provide: (1) Workspace name (e.g. `ws-es-contoso-ma`), (2) Workspace URL and the org ID value after `?o=` in the URL, (3) Region, (4) Subscription ID, (5) Tenant ID / Directory ID, (6) Your UPN/email, (7) Justification: need to create initial Unity Catalog metastore & external location for governance features in this learning project. Suggested wording (EN): "Please add user <UPN> as Account Admin for this Databricks account (trial workspace, no existing Account Admin accessible) to enable Unity Catalog setup." Formulation (FR): « Merci d'ajouter l'utilisateur <UPN> comme Account Admin sur ce compte Databricks (trial sans Account Admin accessible) afin d'activer Unity Catalog. »
+    - Or skip steps 4–5 and continue using `hive_metastore`. To simulate governance without UC: (1) create schemas named `raw`, `bronze`, `silver`, `gold`, `monitor`, `ref`; (2) enforce row filters via SQL views; (3) document access rules manually.
+  - Direct URL (if you are an admin): https://accounts.azuredatabricks.net  (sign‑in failure or 403 means you lack account privileges.)
+  - Fallback (FR) — si vous voyez un message comme « Selected user account does not exist in tenant … » ou vous ne voyez pas "Manage account" : ignorez Unity Catalog et créez simplement les bases dans `hive_metastore` pour continuer. Dans un notebook (SQL):
+    ```sql
+    CREATE DATABASE IF NOT EXISTS raw;
+    CREATE DATABASE IF NOT EXISTS bronze;
+    CREATE DATABASE IF NOT EXISTS silver;
+    CREATE DATABASE IF NOT EXISTS gold;
+    CREATE DATABASE IF NOT EXISTS monitor;
+    CREATE DATABASE IF NOT EXISTS ref;
+    ```
+    Utilisez ensuite `bronze` (ingestion), `silver` (nettoyage), `gold` (marts). Vous pourrez migrer plus tard vers Unity Catalog sans tout refaire. Passez directement à la suite du guide.
+  - Create an External Location pointing to the container path, e.g.: `abfss://unity-catalog@stes-es-contonso-ma.dfs.core.windows.net/`
+  - Grant privileges (USE CATALOG / CREATE / SELECT as needed) to relevant groups (e.g., `data_engineers`, `analysts`)
+  - (If you used a different container name, adjust the URI accordingly)
 
 ##### 5) Attach workspace to Metastore
   - Account Console → Workspaces → select workspace → Attach Metastore
