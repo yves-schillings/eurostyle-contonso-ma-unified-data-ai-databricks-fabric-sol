@@ -237,3 +237,7 @@ _Backlog file:_ `./eurostyle-contonso-ma-project-backlog.md`
 - [Feature 3.1](./eurostyle-contonso-ma-project-backlog.md#feature-3-1) · [Feature 3.2](./eurostyle-contonso-ma-project-backlog.md#feature-3-2) · [Feature 3.3](./eurostyle-contonso-ma-project-backlog.md#feature-3-3) · [Feature 3.4](./eurostyle-contonso-ma-project-backlog.md#feature-3-4)  
 - [Feature 4.1](./eurostyle-contonso-ma-project-backlog.md#feature-4-1) · [Feature 4.2](./eurostyle-contonso-ma-project-backlog.md#feature-4-2) · [Feature 4.3](./eurostyle-contonso-ma-project-backlog.md#feature-4-3)  
 - [Feature 5.1](./eurostyle-contonso-ma-project-backlog.md#feature-5-1) · [Feature 5.2](./eurostyle-contonso-ma-project-backlog.md#feature-5-2) · [Feature 5.3](./eurostyle-contonso-ma-project-backlog.md#feature-5-3) · [Feature 5.4](./eurostyle-contonso-ma-project-backlog.md#feature-5-4)
+
+---
+ Additional resource: [secloudis.com](https://secloudis.com) – articles and notes on cloud, data, analytics, and artificial intelligence (optional external reference).
+
