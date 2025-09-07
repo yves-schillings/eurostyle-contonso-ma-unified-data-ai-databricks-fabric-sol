@@ -192,7 +192,7 @@ Epics overview (what each epic delivers)
 - [Epic 3 — Analytics & BI](statement/eurostyle-contonso-ma-project-backlog.md#epic-3): business KPIs, semantic modeling, reports, and security (RLS).
 - [Epic 4 — Platform Integration](statement/eurostyle-contonso-ma-project-backlog.md#epic-4): handoff to Microsoft Fabric (Lakehouse/Warehouse), pipelines, and promotion.
 
-Data Engineer (DE)
+### Data Engineer (DE)
 - Sprint 1 — [Epic 1](statement/eurostyle-contonso-ma-project-backlog.md#epic-1) ([Feature 1.1](statement/eurostyle-contonso-ma-project-backlog.md#feature-1-1)): Bronze ingestion → Delta tables with lineage
 - Sprint 2 — [Epic 1](statement/eurostyle-contonso-ma-project-backlog.md#epic-1) ([Feature 1.2](statement/eurostyle-contonso-ma-project-backlog.md#feature-1-2)): Silver cleaning → dedup, FX→EUR, idempotent writes
 - Sprint 3 — [Epic 1](statement/eurostyle-contonso-ma-project-backlog.md#epic-1) ([Feature 1.3](statement/eurostyle-contonso-ma-project-backlog.md#feature-1-3)): Gold marts → `sales_daily`, `category_perf`, `customer_360`
@@ -200,13 +200,13 @@ Data Engineer (DE)
 
 Implementation details for the initial ingestion, SQL warehouse setup, DirectQuery connectivity, and documentation steps are explained in [Feature 1.1](statement/eurostyle-contonso-ma-project-backlog.md#feature-1-1).
 
-Data Scientist (DS)
+### Data Scientist (DS)
 - Sprint 1 — [Epic 2](statement/eurostyle-contonso-ma-project-backlog.md#epic-2) ([Feature 2.1](statement/eurostyle-contonso-ma-project-backlog.md#feature-2-1)): EDA, baselines, MLflow setup
 - Sprint 2 — [Epic 2](statement/eurostyle-contonso-ma-project-backlog.md#epic-2) ([Feature 2.2](statement/eurostyle-contonso-ma-project-backlog.md#feature-2-2)): Feature engineering (RFM, overlap), versioned tables/contracts
 - Sprint 3 — [Epic 2](statement/eurostyle-contonso-ma-project-backlog.md#epic-2) ([Feature 2.3](statement/eurostyle-contonso-ma-project-backlog.md#feature-2-3)): Train and register models (churn, CLV)
 - Sprint 4 — [Epic 2](statement/eurostyle-contonso-ma-project-backlog.md#epic-2) + [Epic 4](statement/eurostyle-contonso-ma-project-backlog.md#epic-4) ([Feature 2.4](statement/eurostyle-contonso-ma-project-backlog.md#feature-2-4)): Batch scoring and join into Gold `customer_360`, then export with DE
 
-Data Business Analyst (DA)
+### Data Business Analyst (DA)
 - Sprint 1 — [Epic 3](statement/eurostyle-contonso-ma-project-backlog.md#epic-3) ([Feature 3.1](statement/eurostyle-contonso-ma-project-backlog.md#feature-3-1)): First Look via Databricks SQL (DirectQuery) or Power BI
 - Sprint 2 — [Epic 3](statement/eurostyle-contonso-ma-project-backlog.md#epic-3) ([Feature 3.2](statement/eurostyle-contonso-ma-project-backlog.md#feature-3-2)): Raw vs Silver comparison; draft RLS
 - Sprint 3 — [Epic 3](statement/eurostyle-contonso-ma-project-backlog.md#epic-3) ([Feature 3.3](statement/eurostyle-contonso-ma-project-backlog.md#feature-3-3)): Executive Post‑Merger dashboard
