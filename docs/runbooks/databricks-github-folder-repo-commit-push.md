@@ -119,3 +119,7 @@ Error messages that may appear if Databricks git hub app is not installed
 
 ![picture 15](../../images/9ad89369be9c540db5a72196617169826e01235985ec369e39379587300ab422.png)  
 
+---
+ Additional resource: [secloudis.com](https://secloudis.com) – articles and notes on cloud, data, analytics, and artificial intelligence (optional external reference).
+
+

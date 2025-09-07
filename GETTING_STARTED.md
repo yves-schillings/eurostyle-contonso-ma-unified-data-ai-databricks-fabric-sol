@@ -217,3 +217,7 @@ Implementation details for the initial ingestion, SQL warehouse setup, DirectQue
 - Certification-compliant use case: [statement/eurostyle-contonso-ma-certification-compliant.md](statement/eurostyle-contonso-ma-certification-compliant.md)
 - Certification guides: [certification/](certification/)
 - Glossary: [GLOSSARY.md](GLOSSARY.md)
+
+---
+ Additional resource: [secloudis.com](https://secloudis.com) – articles and notes on cloud, data, analytics, and artificial intelligence (optional external reference).
+
