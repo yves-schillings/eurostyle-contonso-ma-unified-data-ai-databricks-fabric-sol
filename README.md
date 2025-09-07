@@ -2,8 +2,6 @@
 
 This case shows how Databricks and Microsoft Fabric can unify two retailers' fragmented systems into a single, governed, and AI-driven platform, giving executives consistent KPIs, real-time dashboards, and predictive insights after a complex M&A.
 
-
-
 ## Business Context
 
 In 2025, EuroStyle (Northern Europe) acquired Contoso Retail (Southern Europe).  
@@ -22,7 +20,6 @@ To address this, the CMO and CDAO asked the **Data Engineer**, **Data Scientist*
  - **Integration**: OneLake shortcuts (zero-copy) preferred; otherwise Parquet + manifest with Fabric Data Pipelines. Supports Direct Lake and CI/CD.
  - **Profiles**: DE (Medallion + handover), DS (EDA→churn/CLV + scoring), Data Business Analyst (Fabric/Power BI, RLS, dashboards).
  
-
 ---
 
 ## Project Objectives
@@ -68,11 +65,9 @@ In a production environment, this would be automated and governed using:
 - **Customer lifetime:** expected longevity/value of a customer relationship.  
 - **Zero-copy (shortcuts):** reference data without duplicating it.
 
-
 ---
 
 ![picture 5](images/7af569d43b6533c9745fe0f1e39cd23dfe1139d482a5924b550c92d3e489d88b.png)  
-
 
 ---
 
@@ -80,6 +75,7 @@ In a production environment, this would be automated and governed using:
 
 - [Business Case](./statement/eurostyle-contonso-ma-business-case.md)
 - [Product Backlog](./statement/eurostyle-contonso-ma-project-backlog.md)
+- Solutions: https://github.com/yves-schillings/eurostyle-contonso-ma-unified-data-ai-databricks-fabric-sol/tree/main/solution
 - [Getting Started (free/trial setup)](./GETTING_STARTED.md)
 - [Certification-Compliant Use Case Mapping](./statement/eurostyle-contonso-ma-certification-compliant.md)
 - Certification guides:
@@ -87,7 +83,6 @@ In a production environment, this would be automated and governed using:
   - [Data Scientist](./certification/data-scientist-certifications.md)
   - [Data Business Analyst](./certification/data-business-analyst-certifications.md)
 - [Glossary](./GLOSSARY.md)
-
 
 ---
 
