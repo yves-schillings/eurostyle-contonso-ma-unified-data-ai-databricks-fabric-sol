@@ -80,6 +80,89 @@ Document the Hostname and HTTP Path (from the warehouse details) in the README u
   - Docs (overview): https://learn.microsoft.com/azure/databricks/data-governance/unity-catalog/
   - If you can't enable UC on trial, use `hive_metastore` and simulate RLS in views or enforce RLS in Power BI
 
+#### Unity Catalog setup — storage account & access connector (optional but recommended for a fuller governance study experience)
+These steps sit outside the minimal trial path. Do them if you want realistic governance (catalogs), cleaner lineage, and fine‑grained security scenarios.
+
+##### 1) Storage account (ADLS Gen2)
+  - Azure Portal → Create resource → Storage account
+
+ ![picture 3](images/0d74c1202e62bc7ac0e13679e7aaf80852b83f93f998076da6db5c3790231a50.png)  
+
+  - Name: `stescontosoma` (lowercase, 3–24 chars, letters & numbers only; no dashes or underscores; globally unique)
+  - Region: same as workspace (e.g., France Central)
+  - Performance: Standard; Redundancy: LRS
+
+![picture 4](images/045b7e56fa06dbec837259ec9709fb65bfcb95497d320da9f909315eac724031.png)  
+
+  - Advanced: Enable Hierarchical namespace
+
+![picture 6](images/31ec36a81f7fca5630968692ee7fe0465bfa975c1f112d0946b4721310ebcd79.png)  
+
+![picture 8](images/91389e328fa51b057057c43740e1876eaaa448d10f504e770e261d2a4bfd1c6d.png)  
+
+  - Create → then inside the storage account create containers:
+
+![picture 11](images/ac2c364f3434c7f53bee751ef27494dcc7feb04f847e8c40a845a15ba376f35c.png)  
+
+![picture 12](images/fa54468033343083475525ae0f033fd2fe4e87e5cbe18de288599191e4eefa8c.png)  
+
+  - Containers (suggested logical zones):
+    - `unity-catalog` – Unity Catalog managed tables / metastore-related data (if used)
+    - `raw` – optional pre-bronze dump (exact source file copies before any normalization)
+    - `bronze` – raw ingested landing zone (minimal transformation)
+    - `silver` – cleaned & conformed data (deduped, typed, harmonized)
+    - `gold` – curated marts / analytics-ready aggregates
+    - `monitor` – quality & operational metrics (DQ checks, pipeline run logs, churn/model metrics exports)
+
+  - `chk` – (optional) checkpoint/state isolation. You can keep streaming/Autoloader `_checkpoint` folders inside each zone instead of a container; we create a dedicated container here for clarity & easy lifecycle cleanup.
+
+![picture 16](images/c914ad38ec89f2146399fc5e891329a386eadba392f2d1630dce976021afd559.png)  
+
+    - `ref` – small, relatively static reference / lookup sets (currencies, category mappings, code lists)
+
+
+##### 2) Azure Databricks Access Connector
+  - Create resource → "Azure Databricks access connector"
+
+![picture 17](images/347936685f489774c62e80bc8595a5d3989728bee4190b5d6dee0e54183ab751.png)  
+
+![picture 18](images/f49cfe743d7a3f7d5810ba67e6896276d07cfeb28f54a8c9e4a3566f418aa4d8.png)  
+
+
+  - Name: `ac-es-contonso-ma` (same RG & region)
+  - Identity: System assigned
+  - Create
+
+![picture 19](images/0340f496730ac0c65da470cd6a17c699b821d6857ca05a020070b35efc671991.png)  
+
+
+##### 3) Grant connector access to storage
+  - Storage account → Access control (IAM) → Add role assignment
+
+![picture 20](images/f5a10ce54422cfde96a6e2858e7950bd7bee198d54e3f173acc9db9b2be4e287.png)  
+
+  - Role: Storage Blob Data Owner (simplest) — or Storage Blob Data Contributor for least privilege
+
+![picture 21](images/4678466baf2915d8ff75cdc006e14ada892ca4d9fc8cd994af2d806a37c41c9d.png)  
+
+  - Assign access to: Managed identity → select `ac-es-contonso-ma` → Save
+
+![picture 22](images/2cd6312e2553341fd06d53784388315187063da029ab9f8bd9b912df01777b4e.png)  
+
+
+##### 4) Create Metastore & External Location (requires Account Admin)
+  - Databricks Account Console → Data → Create Metastore
+  - External Location path: `abfss://uc@stes-es-contonso-ma.dfs.core.windows.net/`
+  - Grant privileges to groups (data_engineers, analysts)
+
+##### 5) Attach workspace to Metastore
+  - Account Console → Workspaces → select workspace → Attach Metastore
+
+Notes
+  - If blocked (trial restrictions) fallback to `hive_metastore` and continue.
+  - UC improves lineage & privilege granularity; cost hygiene still relies on auto-stop.
+  - Consistent naming (`es-contonso-ma`) simplifies future automation scripts.
+
 Collect connection info (for Power BI or external SQL clients)
 - In SQL persona → Warehouses → your warehouse → Copy "Server hostname" and "HTTP Path"
 - You'll use these in the Power BI Databricks connector
