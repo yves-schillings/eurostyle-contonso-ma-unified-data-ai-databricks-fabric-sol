@@ -90,7 +90,6 @@ These steps sit outside the minimal trial path. Do them if you want realistic go
   - Name: `stescontosoma` (lowercase, 3–24 chars, letters & numbers only; no dashes or underscores; globally unique)
   - Region: same as workspace (e.g., France Central)
   - Performance: Standard; Redundancy: LRS
-  - 
 ![picture 34](images/82b7c6fd95362b214bd6585a22280f0b88f28a73b2a3f6ede20688edce012c4c.png)  
 
   - Advanced: Enable Hierarchical namespace
@@ -103,7 +102,6 @@ These steps sit outside the minimal trial path. Do them if you want realistic go
 ![picture 36](images/30552689f27c0226a3027397d78dda3321b23946a527796a721ef2510ee5bdae.png)  
 
 ![picture 37](images/2045490318221a376e8e92c739c927221f1b8cc6fc7335e298168ce174f3e275.png)  
-
 
 
   - Containers (suggested logical zones):
@@ -121,13 +119,28 @@ These steps sit outside the minimal trial path. Do them if you want realistic go
 ![picture 40](images/34149f7cc35e5021133e0f641073f9d9e678882300a9a9c8e8c00277c897e4da.png)  
 
 
-    - `ref` – small, relatively static reference / lookup sets (currencies, category mappings, code lists)
+**Upload data files into `raw`**
 
+Create two folders inside `raw` (landing area for ingested files):
+- `eurostyle` 
+- `contoso`
+
+Upload in 
+- `eurostyle`  the files in `data/source/eurostyle` from this repo (CSV files).
+- `contoso` the files   in `data/source/contoso` from this repo (csv file).  
+
+![picture 67](images/e68ff3c6c5082debc743c221eefa6928b861d6bf3ca8fec738466fea0138d7f0.png)  
+![picture 63](images/06da2599c57279bddc01c4a414794dedf5b1e86224f5fc0fc3d6bc845e1921b0.png) 
+
+![picture 64](images/cc2d6b986f4b532c39f7a8cdaa55cec31cbd5520d63866126910d55b6290f931.png)  
+![picture 65](images/5738a7785f37f162bffc3df0cf16d5c5ab3f8eb1e19a6b93d2fa3ca030d36031.png)  
+![picture 66](images/b77d7930dc988015412b8382aabe21469da49049202edbb34b0eb69e072c2ffa.png)  
+![picture 68](images/82a3e2b9e6abf22d449e80f93f6d773a4df41f824d70d49b0c46020efebd07fc.png)  
 
 ##### 2) Azure Databricks Access Connector
   - Create resource → "Azure Databricks access connector"
 
-![picture 17](images/347936685f489774c62e80bc8595a5d3989728bee4190b5d6dee0e54183ab751.png)  
+![picture 17](images/347936685f489774c62e80bc8595a5d3989728bee4190b5d6dee0e54183ab751.png) 
 
 ![picture 41](images/d851ccadc2228ed58bdd0e2a25f14073ed8bc3be6c6fa2c2aa1381b4cd4650fe.png)  
 
@@ -141,20 +154,15 @@ These steps sit outside the minimal trial path. Do them if you want realistic go
   - Storage account → Access control (IAM) → Add role assignment
 
 ![picture 43](images/d199d0149ecee4477ed3bd0111b6d7b011ca629360fad0ccb3362f75e388a32b.png)  
-
   - Role: Storage Blob Data Owner (simplest) — or Storage Blob Data Contributor for least privilege
 
-
-![picture 44](images/b30bf83340020eea5125919067c88f4773b7a091f4ecc9f2787c0672e0c9b32d.png)  
+![picture 44](images/b30bf83340020eea5125919067c88f4773b7a091f4ecc9f2787c0672e0c9b32d.png) 
 
   - Assign access to: Managed identity → select `ac-es-contonso-ma` → Save
 
 ![picture 45](images/3e88846fe6372a4be08e3ad74f471415252a8e2f56fcdd0f2caab8c108ec86a6.png)  
-
 ![picture 46](images/68c49bc12ea4bbc365c10e9c6dd74f5c66f9c9e58d3025a2f6f4b4c23bd872d3.png)  
-
-
-####  Assigning a Catalog to Workspaces in Databricks
+#### Assigning a Catalog to Workspaces in Databricks
 
 In Unity Catalog, a catalog is a top-level container that organizes schemas and tables. By default, a catalog is created at the account level, but workspaces cannot access it until it is explicitly assigned.
 
@@ -253,37 +261,43 @@ Account Console → User management → Add user → add yves.schillings@secloud
 ##### 4) Create Metastore & External Location (requires Account Admin)
 > **No "Manage account" button visible?**  
 > Then you are not an Account Admin (common with a personal trial). Skip the Unity Catalog steps below and use the fallback: create the `raw|bronze|silver|gold|monitor|ref` databases in `hive_metastore` (SQL block provided) and continue. You can enable Unity Catalog later without redoing earlier features.
-  - Open the Databricks Account Console (NOT the workspace UI) → left menu "Data" (sometimes labeled "Unity Catalog") → Create Metastore (give it a name and region matching the workspace)
-
-![picture 23](images/ed47b563298f4877971ff1d71f3f25d3165aa61593fcc068121184aafd9bdcc8.png)  
-
-
+  
   - If you do NOT see a "Manage Account" (or "Account Console") option in the top‑right user/avatar menu inside the workspace, you are not an Account Admin. Options:
-    - Ask an existing Account Admin to grant you the Account Admin role (Account Console → User management → add user → assign role) so you can perform steps 4–5.
-  - Escalation (no Account Admin visible / fresh trial) — open a Support ticket (Databricks or Azure) requesting elevation of your user to Account Admin. Provide: (1) Workspace name (e.g. `ws-es-contoso-ma`), (2) Workspace URL and the org ID value after `?o=` in the URL, (3) Region, (4) Subscription ID, (5) Tenant ID / Directory ID, (6) Your UPN/email, (7) Justification: need to create initial Unity Catalog metastore & external location for governance features in this learning project. Suggested wording (EN): "Please add user <UPN> as Account Admin for this Databricks account (trial workspace, no existing Account Admin accessible) to enable Unity Catalog setup." Formulation (FR): « Merci d'ajouter l'utilisateur <UPN> comme Account Admin sur ce compte Databricks (trial sans Account Admin accessible) afin d'activer Unity Catalog. »
-    - Or skip steps 4–5 and continue using `hive_metastore`. To simulate governance without UC: (1) create schemas named `raw`, `bronze`, `silver`, `gold`, `monitor`, `ref`; (2) enforce row filters via SQL views; (3) document access rules manually.
+    - Ask an existing Account Admin to grant you the Account Admin role (Account Console → User management → add user → assign role) so you can perform steps 4–5 or follow the steps explained above **Bootstrapping the Databricks Account Console (when no Account Admin exists)**
+
+
+![picture 57](images/10bebe431a4eaade7fa752e5d25ff2403b0987aebca5868029af914ebc638c32.png)  
+
   - Direct URL (if you are an admin): https://accounts.azuredatabricks.net  (sign‑in failure or 403 means you lack account privileges.)
-  - Fallback (FR) — si vous voyez un message comme « Selected user account does not exist in tenant … » ou vous ne voyez pas "Manage account" : ignorez Unity Catalog et créez simplement les bases dans `hive_metastore` pour continuer. Dans un notebook (SQL):
-    ```sql
-    CREATE DATABASE IF NOT EXISTS raw;
-    CREATE DATABASE IF NOT EXISTS bronze;
-    CREATE DATABASE IF NOT EXISTS silver;
-    CREATE DATABASE IF NOT EXISTS gold;
-    CREATE DATABASE IF NOT EXISTS monitor;
-    CREATE DATABASE IF NOT EXISTS ref;
-    ```
-    Utilisez ensuite `bronze` (ingestion), `silver` (nettoyage), `gold` (marts). Vous pourrez migrer plus tard vers Unity Catalog sans tout refaire. Passez directement à la suite du guide.
+
+![picture 58](images/0d18acb1fa0cfc3d6a3e5a0ed9d20b29fc3a0de3f64a7509da22ac23acfdb2ea.png)  
+
+![picture 59](images/63cf2ff7db503ac289f61523f4a329dccb24a251af54a463d95dbe548db7b815.png)  
+
+![picture 60](images/3ec64284eb5233e02d709f2b75ce01c7e70fb29269eb4e35fed9dbac29c5e451.png)  
+
+
+  - Open the Databricks Account Console (NOT the workspace UI) → left menu "Catalog" ("Unity Catalog") → Create Metastore (give it a name and region matching the workspace)
+
+
+![picture 56](images/ec805b3d02d2c7e35e729f9a0b8e844ec7168bc6b403e5b9ca6829d2b3f58e5e.png)  
+
+
+
+    - Or skip steps 4–5 and continue using `hive_metastore`. To simulate governance without UC: (1) create schemas named `raw`, `bronze`, `silver`, `gold`, `monitor`, `ref`; (2) enforce row filters via SQL views; (3) document access rules manually.
+
+
   - Create an External Location pointing to the container path, e.g.: `abfss://unity-catalog@stes-es-contonso-ma.dfs.core.windows.net/`
   - Grant privileges (USE CATALOG / CREATE / SELECT as needed) to relevant groups (e.g., `data_engineers`, `analysts`)
   - (If you used a different container name, adjust the URI accordingly)
 
-### Step 4: Create External Location for Unity Catalog Metastore
+###### Detail: Create External Location for Unity Catalog Metastore
 
 To enable Unity Catalog to store and manage metadata in Azure Data Lake Storage Gen2 (ADLS Gen2), you must create an External Location. This binds the storage path (for example: `abfss://uc-metastore@<your-storage-account>.dfs.core.windows.net/`) to a Storage Credential (typically a Managed Identity or Service Principal) that has permission to access the underlying storage.
 
 This step is required to ensure that Unity Catalog can securely read and write metadata files (such as schema definitions, managed tables, and permission records) in the ADLS Gen2 container.
 
-#### Instructions
+**Instructions**
 
 1. In the Databricks workspace, go to the left navigation pane and open **Catalog > External Locations**.
 2. Click **Create**.
@@ -305,6 +319,9 @@ If the test passes with all permissions confirmed, the external location is now 
 
 ##### 5) Attach workspace to Metastore
   - Account Console → Workspaces → select workspace → Attach Metastore
+
+![picture 61](images/b6f7a20336f84ea57e11228e894e62f20b193f8fa68e04b40b9d57bf3c263140.png)  
+
 
 Notes
   - If blocked (trial restrictions) fallback to `hive_metastore` and continue.
@@ -442,7 +459,7 @@ Implementation details for the initial ingestion, SQL warehouse setup, DirectQue
 - Sprint 2 — [Epic 3](statement/eurostyle-contonso-ma-project-backlog.md#epic-3) ([Feature 3.2](statement/eurostyle-contonso-ma-project-backlog.md#feature-3-2)): Raw vs Silver comparison; draft RLS
 - Sprint 3 — [Epic 3](statement/eurostyle-contonso-ma-project-backlog.md#epic-3) ([Feature 3.3](statement/eurostyle-contonso-ma-project-backlog.md#feature-3-3)): Executive Post‑Merger dashboard
 - Sprint 4 — [Epic 3](statement/eurostyle-contonso-ma-project-backlog.md#epic-3) + [Epic 4](statement/eurostyle-contonso-ma-project-backlog.md#epic-4) ([Feature 4.2](statement/eurostyle-contonso-ma-project-backlog.md#feature-4-2)): Power BI Suite and Deployment Pipeline (Dev→Test)
-## 7) References
+## 6) References
 - Backlog: [statement/eurostyle-contonso-ma-project-backlog.md](statement/eurostyle-contonso-ma-project-backlog.md)
 - Solutions: https://github.com/yves-schillings/eurostyle-contonso-ma-unified-data-ai-databricks-fabric-sol/tree/main/solution
 - Certification-compliant use case: [statement/eurostyle-contonso-ma-certification-compliant.md](statement/eurostyle-contonso-ma-certification-compliant.md)
