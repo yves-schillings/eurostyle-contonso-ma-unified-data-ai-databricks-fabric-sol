@@ -31,12 +31,11 @@ Useful links: [Glossary](GLOSSARY.md), [Backlog](statement/eurostyle-contonso-ma
 - Review + create → after deployment, Open and Launch Workspace
 - Reference: Getting started → Create workspace: https://learn.microsoft.com/azure/databricks/getting-started/
 
-![picture 30](images/54caa146857cd8b33175cbbce62ef2bc55214777f093cc0c9bd147a159de80ab.png)  
+![picture 0](images/34f990123328fe7d587a16e04ffc0210fccb4b30330e8b2983fb3bf201eb777e.png)  
 
-![picture 32](images/33cacddf9c34d1d8f2632334f99e22b2af4fa364325b01442d51fb1935b7de84.png)  
+![picture 1](images/cd0cf50dced839e1b298f83151e1e5a587f2f78db39ae58881fe12c32a704e3b.png)  
 
-![picture 33](images/7ee2e1b4b1ba336a5c0a9b2e7c69552370c8eff93ffc4e757d7b3d720f09a2f9.png)  
-
+![picture 2](images/b4ea5df4a49ee639e554f5f435b285da47e8fb3ecb9589845b0a8d3a717c4db4.png)  
 
 
 ### Minimal workspace configuration
@@ -87,24 +86,24 @@ These steps sit outside the minimal trial path. Do them if you want realistic go
 ##### 1) Storage account (ADLS Gen2)
   - Azure Portal → Create resource → Storage account
 
+ ![picture 3](images/0d74c1202e62bc7ac0e13679e7aaf80852b83f93f998076da6db5c3790231a50.png)  
+
   - Name: `stescontosoma` (lowercase, 3–24 chars, letters & numbers only; no dashes or underscores; globally unique)
   - Region: same as workspace (e.g., France Central)
   - Performance: Standard; Redundancy: LRS
-  - 
-![picture 34](images/82b7c6fd95362b214bd6585a22280f0b88f28a73b2a3f6ede20688edce012c4c.png)  
+
+![picture 27](images/c0283a356c3c451e728a537e997a95e453d476c0cc0a70f13b6398d00b01eb99.png)  
 
   - Advanced: Enable Hierarchical namespace
 
-![picture 35](images/d5824a8fbf6e2f56e3fd5899f95f1d55beafed9747fe64043cebc54370ab2ba1.png) 
+  ![picture 28](images/b6d6113f99a9757b7344ebd1e18a96d06bd8b901af36af7beb4900955f5560c9.png)  
 
 
   - Create → then inside the storage account create containers:
 
-![picture 36](images/30552689f27c0226a3027397d78dda3321b23946a527796a721ef2510ee5bdae.png)  
+![picture 11](images/ac2c364f3434c7f53bee751ef27494dcc7feb04f847e8c40a845a15ba376f35c.png)  
 
-![picture 37](images/2045490318221a376e8e92c739c927221f1b8cc6fc7335e298168ce174f3e275.png)  
-
-
+![picture 12](images/fa54468033343083475525ae0f033fd2fe4e87e5cbe18de288599191e4eefa8c.png)  
 
   - Containers (suggested logical zones):
     - `unity-catalog` – Unity Catalog managed tables / metastore-related data (if used)
@@ -112,13 +111,11 @@ These steps sit outside the minimal trial path. Do them if you want realistic go
     - `bronze` – raw ingested landing zone (minimal transformation)
     - `silver` – cleaned & conformed data (deduped, typed, harmonized)
     - `gold` – curated marts / analytics-ready aggregates
-
     - `monitor` – quality & operational metrics (DQ checks, pipeline run logs, churn/model metrics exports)
 
   - `chk` – (optional) checkpoint/state isolation. You can keep streaming/Autoloader `_checkpoint` folders inside each zone instead of a container; we create a dedicated container here for clarity & easy lifecycle cleanup.
 
-
-![picture 40](images/34149f7cc35e5021133e0f641073f9d9e678882300a9a9c8e8c00277c897e4da.png)  
+![picture 29](images/8e77d45b28ba8630b6834be577b4c17136b8ed30f7a8782b75a55ff0ff7feabb.png)  
 
 
     - `ref` – small, relatively static reference / lookup sets (currencies, category mappings, code lists)
@@ -129,129 +126,36 @@ These steps sit outside the minimal trial path. Do them if you want realistic go
 
 ![picture 17](images/347936685f489774c62e80bc8595a5d3989728bee4190b5d6dee0e54183ab751.png)  
 
-![picture 41](images/d851ccadc2228ed58bdd0e2a25f14073ed8bc3be6c6fa2c2aa1381b4cd4650fe.png)  
+![picture 18](images/f49cfe743d7a3f7d5810ba67e6896276d07cfeb28f54a8c9e4a3566f418aa4d8.png)  
+
 
   - Name: `ac-es-contonso-ma` (same RG & region)
   - Identity: System assigned
-  - Create an Access Connector for Azure Databricks
+  - Create
 
- ![picture 42](images/5eea384c7d52c9e40d519f47133270e7abc1e016e7ca5470f4c2495195e80f07.png)  
+![picture 19](images/0340f496730ac0c65da470cd6a17c699b821d6857ca05a020070b35efc671991.png)  
+
 
 ##### 3) Grant connector access to storage
   - Storage account → Access control (IAM) → Add role assignment
 
-![picture 43](images/d199d0149ecee4477ed3bd0111b6d7b011ca629360fad0ccb3362f75e388a32b.png)  
+![picture 20](images/f5a10ce54422cfde96a6e2858e7950bd7bee198d54e3f173acc9db9b2be4e287.png)  
 
   - Role: Storage Blob Data Owner (simplest) — or Storage Blob Data Contributor for least privilege
 
-
-![picture 44](images/b30bf83340020eea5125919067c88f4773b7a091f4ecc9f2787c0672e0c9b32d.png)  
+![picture 21](images/4678466baf2915d8ff75cdc006e14ada892ca4d9fc8cd994af2d806a37c41c9d.png)  
 
   - Assign access to: Managed identity → select `ac-es-contonso-ma` → Save
 
-![picture 45](images/3e88846fe6372a4be08e3ad74f471415252a8e2f56fcdd0f2caab8c108ec86a6.png)  
+![picture 22](images/2cd6312e2553341fd06d53784388315187063da029ab9f8bd9b912df01777b4e.png)  
 
-![picture 46](images/68c49bc12ea4bbc365c10e9c6dd74f5c66f9c9e58d3025a2f6f4b4c23bd872d3.png)  
+![picture 24](images/587e4b54d0a4661ad97f2302058d0a8b5d964ef49c460fde84e08356069f4726.png)  
 
-
-####  Assigning a Catalog to Workspaces in Databricks
-
-In Unity Catalog, a catalog is a top-level container that organizes schemas and tables. By default, a catalog is created at the account level, but workspaces cannot access it until it is explicitly assigned.
-
-**Why this step is necessary**
-- Each workspace in Databricks operates in isolation unless you grant it permissions.
-- Assigning a catalog to a workspace ensures that users in that workspace can see and use the catalog's objects (schemas, tables, views).
-- Without this assignment, the catalog will remain inaccessible, even if the workspace is linked to the same Unity Catalog metastore.
-
-**What is being done in the screenshots**
-1. In the Catalog Explorer, the catalog ws_es_contoso_ma is shown as "No access".
-2. The administrator clicks Assign to workspaces.
-3. The list of available workspaces is displayed. Here, the workspace ws-es-contoso-ma is selected.
-4. Clicking Assign grants this workspace the ability to access the catalog.
-5. The catalog now becomes available inside the workspace, and its objects can be created and queried.
-
-**Key point**
-
-This step links the account-level catalog to the workspace. Without this linkage, users inside the workspace cannot create or query objects in the catalog, even if they have the correct permissions.
-
-![picture 52](images/b3b9c35c73a8b7b2ecb55802dbba19815c25c885c52e8d59ff04ffd0012388ad.png)  
-
-![picture 53](images/4ab5c7d5a7afe21e1e1e45ec3216a6a3a0d211614a61573bcd0af6210e363152.png)  
-
-
-#### Bootstrapping the Databricks Account Console (when no Account Admin exists)
-
-##### Symptoms
-
-In the workspace UI there is no "Manage account / Account Console" button.
-
-Trying to open the Account Console shows: "The Microsoft Entra tenant … does not belong to any Databricks account."
-
-Your main identity (e.g., yves.schillings@secloudis.com) appears as a Guest in the tenant that owns the subscription.
-
-##### Why this happens
-
-Databricks Account Console sits above workspaces. The very first time an Entra tenant is linked to a Databricks account, only a Microsoft Entra Global Administrator (or an existing Databricks Account admin) can sign in and create that account.
-If your everyday user is a Guest in the subscription's directory, it can create a workspace but cannot bootstrap the Account Console.
-
-##### What we did (one-time bootstrap)
-
-We created a temporary internal user in the subscription's directory with Global Admin, used it once to create the Databricks account, then granted Account Admin to the real user.
-
-Steps
-
-##### Create an internal admin user
-Azure Portal → Microsoft Entra ID (the Default Directory that owns the subscription) → Users → New user
-
-UPN: adb-admin@<your_tenant>.onmicrosoft.com
-
-Display name: Databricks Admin
-
-Assign role: Global Administrator (Roles and administrators → Global Administrator → Add assignment)
-
-![picture 47](images/e97aaa351cc68ed2df1182fa49eb533c37ce2e66c54135b83a883156e1422c3d.png)  
-
-
-##### Sign in to the Account Console once
-Go to https://accounts.azuredatabricks.net and sign in with adb-admin@….
-This creates the Databricks Account for the tenant and makes this user Account admin.
-
-![picture 23](images/ed47b563298f4877971ff1d71f3f25d3165aa61593fcc068121184aafd9bdcc8.png)
-
-
-##### Grant your real user Account Admin
-Account Console → User management → Add user → add yves.schillings@secloudis.com → toggle Account admin.
-
-![picture 48](images/f643ea2c891988afb44f3b2fa7ffefff18281d5863736b5588db97007af646e2.png)  
-
-![picture 49](images/10267b0810305ae6a00f48dd1a83e95fee43ed9d971c9ec49076d614a6226415.png)  
-
-##### Open the Databricks Account Console from a workspace
-
-- In any Azure Databricks workspace:
-- Go to the top-right header and click the workspace selector (it shows your current workspace name, e.g. ws-es-contoso-ma).
-- Click Manage account (see screenshot). This opens the Databricks Account Console in a new tab.
-
-![picture 50](images/88e74f44d23709926336bb294bf54257d1b4bb6d27e94505e2cf2f2190d18149.png)  
-
-![picture 51](images/61139924beaec223f899f4fe62602a4ff83e9c723d9f6b54fd9b196a1cabfb88.png)  
-
-
-##### (Optional) Reduce privileges / clean-up
-
-- Remove Global Administrator from adb-admin@…, or disable the account, or keep it as a break-glass account protected with MFA/PIM and a strong, vaulted password.
-
-- After this bootstrap, continue with Unity Catalog setup: create the Metastore (France Central), Storage credential (via Access Connector), External location (your unity-catalog container), and attach the workspace to the metastore.
-
-##### Security notes
-
-- Use MFA for any account with elevated rights.
-- Prefer PIM (just-in-time Global Admin) if available.
-- Keep the principle of least privilege—remove GA from the temporary user after setup.
+![picture 25](images/18aa02d04bbf0f06bcd5914388391507085510b058bd6a5774a8eb5a297c7bf5.png)  
 
 
 ##### 4) Create Metastore & External Location (requires Account Admin)
-> **No "Manage account" button visible?**  
+> **No "Manage account" button visible? / Vous ne voyez pas "Manage account" ?**  
 > Then you are not an Account Admin (common with a personal trial). Skip the Unity Catalog steps below and use the fallback: create the `raw|bronze|silver|gold|monitor|ref` databases in `hive_metastore` (SQL block provided) and continue. You can enable Unity Catalog later without redoing earlier features.
   - Open the Databricks Account Console (NOT the workspace UI) → left menu "Data" (sometimes labeled "Unity Catalog") → Create Metastore (give it a name and region matching the workspace)
 
@@ -276,32 +180,6 @@ Account Console → User management → Add user → add yves.schillings@secloud
   - Create an External Location pointing to the container path, e.g.: `abfss://unity-catalog@stes-es-contonso-ma.dfs.core.windows.net/`
   - Grant privileges (USE CATALOG / CREATE / SELECT as needed) to relevant groups (e.g., `data_engineers`, `analysts`)
   - (If you used a different container name, adjust the URI accordingly)
-
-### Step 4: Create External Location for Unity Catalog Metastore
-
-To enable Unity Catalog to store and manage metadata in Azure Data Lake Storage Gen2 (ADLS Gen2), you must create an External Location. This binds the storage path (for example: `abfss://uc-metastore@<your-storage-account>.dfs.core.windows.net/`) to a Storage Credential (typically a Managed Identity or Service Principal) that has permission to access the underlying storage.
-
-This step is required to ensure that Unity Catalog can securely read and write metadata files (such as schema definitions, managed tables, and permission records) in the ADLS Gen2 container.
-
-#### Instructions
-
-1. In the Databricks workspace, go to the left navigation pane and open **Catalog > External Locations**.
-2. Click **Create**.
-3. Fill in the following fields:
-   - **External location name**: for example, `loc_uc_metastore`
-   - **Storage type**: select `Azure Data Lake Storage`
-   - **URL**: use the format `abfss://<container>@<storage-account>.dfs.core.windows.net/`
-   - **Storage credential**: select the Managed Identity or Service Principal configured during the Unity Catalog setup
-4. Click **Create** to save the external location.
-5. Once created, click **Test connection** to verify that all required permissions (read, write, list, delete) are correctly assigned.
-
-If the test passes with all permissions confirmed, the external location is now ready and can be used by the Unity Catalog metastore to manage metadata securely.
-
-![picture 54](images/9107c52605a93c5fbb91269981d94e8d7d2c6ae507de87b69bd7b33f701bef0e.png)  
-
-![picture 55](images/f97ce1c1d36fafd97c0ecd34a6a4584166b15032a7af3d51e6174fc0ba04619f.png)  
-
-
 
 ##### 5) Attach workspace to Metastore
   - Account Console → Workspaces → select workspace → Attach Metastore
