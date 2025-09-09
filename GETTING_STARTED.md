@@ -172,7 +172,7 @@ In Unity Catalog, a catalog is a top-level container that organizes schemas and 
 - Without this assignment, the catalog will remain inaccessible, even if the workspace is linked to the same Unity Catalog metastore.
 
 **What is being done in the screenshots**
-1. In the Catalog Explorer, the catalog ws_es_contoso_ma is shown as "No access".
+1. In the Catalog Explorer, the catalog `ws_es_contoso_ma` is shown as "No access".
 2. The administrator clicks Assign to workspaces.
 3. The list of available workspaces is displayed. Here, the workspace ws-es-contoso-ma is selected.
 4. Clicking Assign grants this workspace the ability to access the catalog.
@@ -199,21 +199,20 @@ Your main identity (e.g., yves.schillings@secloudis.com) appears as a Guest in t
 
 ##### Why this happens
 
-Databricks Account Console sits above workspaces. The very first time an Entra tenant is linked to a Databricks account, only a Microsoft Entra Global Administrator (or an existing Databricks Account admin) can sign in and create that account.
-If your everyday user is a Guest in the subscription's directory, it can create a workspace but cannot bootstrap the Account Console.
+**Databricks Account Console** sits **above workspaces**. The very first time an Entra tenant is linked to a Databricks account, only a Microsoft Entra Global Administrator (or an existing Databricks Account admin) can sign in and create that account.
+If your everyday user is a **Guest** in the subscription's directory, it can create a workspace but **cannot bootstrap the Account Console**.
 
-##### What we did (one-time bootstrap)
+##### One-time bootstrap
 
-We created a temporary internal user in the subscription's directory with Global Admin, used it once to create the Databricks account, then granted Account Admin to the real user.
+Created a temporary internal user in the subscription's directory with Global Admin, used it once to create the Databricks account, then granted Account Admin to the real user.
 
-Steps
+**Steps**
 
 ##### Create an internal admin user
 Azure Portal → Microsoft Entra ID (the Default Directory that owns the subscription) → Users → New user
 
-UPN: adb-admin@<your_tenant>.onmicrosoft.com
-
-Display name: Databricks Admin
+- UPN: adb-admin@<your_tenant>.onmicrosoft.com
+- Display name: Databricks Admin
 
 Assign role: Global Administrator (Roles and administrators → Global Administrator → Add assignment)
 
@@ -225,6 +224,8 @@ Go to https://accounts.azuredatabricks.net and sign in with adb-admin@….
 This creates the Databricks Account for the tenant and makes this user Account admin.
 
 ![picture 23](images/ed47b563298f4877971ff1d71f3f25d3165aa61593fcc068121184aafd9bdcc8.png)
+
+![picture 69](images/1251af0f68a1ddc8895a3a06343f56ae9ba9d1015d49bbf9395d5b4b0cc0cdc1.png)  
 
 
 ##### Grant your real user Account Admin
