@@ -52,17 +52,22 @@ Useful links: [Glossary](GLOSSARY.md), [Backlog](statement/eurostyle-contonso-ma
   - Auto-termination: 15–30 minutes
   - Docs: https://learn.microsoft.com/azure/databricks/compute/create-cluster
 
-![picture 4](images/1c54089c60f6d4d2ad06b227a607c60e9b19718aed662cc0e48813926a952353.png)  
+![picture 74](images/ea0ac168bcc292587865389318bb9870d50e0c4abb6913740b2604c1c49bc899.png)  
 
-![picture 5](images/bdf6eded991ecbd1a4a0d3fde417cd96aeda5264d499c6f84c35e993080a0b66.png)  
+![picture 75](images/598380477caca2bb61d3a8b0049e173242ff017a7368d56672fa1d184b18221d.png)  
 
-![picture 6](images/3715a0e0dc54e5cabd65a0f5b09da661fd20a6a818b08aced077e31702fc720d.png)  
+![picture 76](images/31ad58ca7767deefdd08211239f139fd4800e2703a327ad751ef696a710d1d45.png)  
 
-#### Connect to GitHub repository
+Verify your quota in your subscription if cluster creation fails (default limits are low on trials). Increase your vCPU quota (e.g., to 8 or 16) in the region of your workspace.
 
-Use this runbook to generate a PAT, link GitHub, create/clone the Git folder under /Repos, and perform your first commit & push.
-  - [Runbook — Databricks & GitHub (setup, git folder, commit & push)](./docs/runbooks/databricks-github-folder-repo-commit-push.md)
-  
+![picture 78](images/790f3bb1057ccb976d1d4c350c8839e42fc880ce54b8549f6e282b67e189e36b.png)  
+
+
+
+![picture 77](images/7bd7a60a5b1fe8c4a87430809d3ae1071f17ecf6200a7eb0d48150755708ba6a.png)  
+
+
+
 #### SQL Warehouse (for Databricks SQL dashboards)
 
 Create this once early (Sprint 1, detailed in Feature 1.1) and reuse it across:
@@ -74,8 +79,34 @@ Create this once early (Sprint 1, detailed in Feature 1.1) and reuse it across:
 Document the Hostname and HTTP Path (from the warehouse details) in the README under a short "Connectivity – Power BI / DirectQuery" section so analysts/scientists can connect without asking engineering. Keep it small, auto‑stop aggressively (15–30 min) to control trial costs.
 
   - Switch to SQL persona → Warehouses → New → choose Pro/Classic if Serverless is unavailable in your region
+
+![picture 79](images/071eeb2f662575def07fb819a9fb683e2ec1deaaff0fba1c2449b69256b11f74.png)  
   - Size: small; Auto-stop: 15–30 minutes
   - Docs: https://learn.microsoft.com/azure/databricks/compute/sql-warehouse/create (Create & manage SQL warehouses)
+
+![picture 80](images/79419add7583839e43fe472bfde1b34b639cb1ceb84a6045a4addf7c8422b210.png)  
+
+![picture 81](images/07c69ea036aef35e71397343a16b4062995c40db4be25d2974f3728087a8d84f.png)  
+
+Go to Connection Details and copy the Hostname and HTTP Path for Power BI connection.
+
+![picture 82](images/1b1fa20de4c90520c8477e2d272a512530df9e16ac918aa3fa59f6ff4be10c81.png)  
+
+You can also download the connection file for Power BI Desktop.
+
+![picture 83](images/2da0fbdcb79d9af0e6e7b2808c544c57e2582708c9ca2866f63940fc51c86b3a.png)  
+
+![picture 84](images/cd3e5eedd416f53f8a05faf0d799f17f0546d34a37059c4a01acfd2723ab4723.png)  
+
+![picture 85](images/ec177df2776afa3d5b61a35f2afe5d13baec160e7c0ec5d3df5365267a8e166e.png)  
+
+![picture 86](images/e788c688a169734198837c348c5111d1deeabe2d4e2fcfb3150137b794ed2493.png)  
+
+Connection to Databricks SQL Warehouse from Power BI Desktop (DirectQuery mode) 
+
+![picture 87](images/4651b1db2d7df1517bdb343eda6366b3dea6e133ebde44fc6d61ddb0b5a68fa6.png)  
+
+
 - Optional — Unity Catalog (governed naming and RLS/CLS later)
   - If you're Account Admin: create a UC Metastore (Account Console), attach this workspace, and create an External Location (backed by ADLS Gen2 with a managed identity that has Storage Blob Data Contributor)
   - Docs (overview): https://learn.microsoft.com/azure/databricks/data-governance/unity-catalog/
@@ -343,6 +374,14 @@ Quotas and common issues
 - If you hit regional quota when creating compute: try a smaller VM family or another nearby region
 - Serverless SQL not offered: select Pro/Classic
 - Model Serving not available on trial: use scheduled batch scoring instead
+
+##### 6) Add the git repository to Databricks
+![picture 70](images/967c70964a42fe953d22eedd7989ea13df4c08baf2a86a6329f1dec979034b8c.png)  
+
+![picture 72](images/168f869da3717db3d38d7020f90391d8d80aa37a7f3f2a0662ea55b47b4a5a4d.png)  
+
+![picture 73](images/bc627634db9a2a728b240cf20c9454e94de7f8ddf7a9c60bd6e37508b1443675.png)  
+
 
 ---
 
