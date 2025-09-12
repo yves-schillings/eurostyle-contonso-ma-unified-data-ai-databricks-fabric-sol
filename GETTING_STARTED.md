@@ -218,6 +218,14 @@ This step links the account-level catalog to the workspace. Without this linkage
 ![picture 53](images/4ab5c7d5a7afe21e1e1e45ec3216a6a3a0d211614a61573bcd0af6210e363152.png)  
 
 
+##### Grant user access on workpace (ws_es_contoso_ma)
+
+![picture 88](images/374501a2a69b1e32ac0c2d92742483452b757e43cb19c020e3c44577723108b4.png)  
+
+![picture 89](images/d8825052978539a7c711555d9c366e23bda591b3a162fd5467d0f890c444be53.png)  
+
+
+
 #### Bootstrapping the Databricks Account Console (when no Account Admin exists)
 
 ##### Symptoms
